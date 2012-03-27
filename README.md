@@ -22,6 +22,10 @@ If you prefer to use passwordless sudo just set the following attribute to true:
 
     node['authorization']['sudo']['passwordless']
 
+or add passwordless sudo to specific users by adding their usernames to:
+
+    node['authorization']['sudo']['passwordless_users']
+    
 USAGE
 =====
 
@@ -31,7 +35,7 @@ To use this cookbook, set the attributes above on the node via a role or the nod
       "sudo" => {
         "groups" => ["admin", "wheel", "sysadmin"],
         "users" => ["jerry", "greg"],
-        "passwordless" => true
+        "passwordless_users" => ["jerry"]
       }
     }
 
@@ -48,7 +52,9 @@ In JSON (role.json or on the node object):
           "jerry",
           "greg"
         ],
-        "passwordless": true
+        "passwordless_users": [
+          "jerry"
+        ]
       }
     }
 
@@ -61,6 +67,10 @@ Author:: Adam Jacob <adam@opscode.com>
 Author:: Seth Chisamore <schisamo@opscode.com>
 
 Copyright 2009-2011, Opscode, Inc.
+
+Edits:: David Marble <davidmarble@gmail.com>
+
+* passwordless_users
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

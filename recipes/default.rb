@@ -17,6 +17,12 @@
 # limitations under the License.
 #
 
+# This package is vital for proper chef recipe running on CentOS / Redhat.
+# See http://wiki.opscode.com/display/chef/User+Environment+PATH+Sanity
+# The default /etc/sudoers on CentOS resets env before running any sudo
+# command, which means scripts in chef recipes will only have PATH=/bin:/usr/bin
+# unless you replace the default /etc/sudoers.
+
 package "sudo" do
   action platform?("freebsd") ? :install : :upgrade
 end
@@ -30,6 +36,7 @@ template "/etc/sudoers" do
   variables(
     :sudoers_groups => node['authorization']['sudo']['groups'],
     :sudoers_users => node['authorization']['sudo']['users'],
-    :passwordless => node['authorization']['sudo']['passwordless']
+    :passwordless => node['authorization']['sudo']['passwordless'],
+    :passwordless_users => node['authorization']['sudo']['passwordless_users']
   )
 end

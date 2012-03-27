@@ -10,7 +10,7 @@ Defaults        !lecture,tty_tickets,!fqdn
 root          ALL=(ALL) ALL
 
 <% @sudoers_users.each do |user| -%>
-<%= user %>   ALL=(ALL) <%= "NOPASSWD:" if @passwordless %>ALL
+<%= user %>   ALL=(ALL) <%= "NOPASSWD:" if @passwordless or @passwordless_users.include?(user) %>ALL
 <% end -%>
 
 # Members of the sysadmin group may gain root privileges
